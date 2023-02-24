@@ -1,4 +1,4 @@
-
+require "byebug"
 #this is very bad, example of a quadratic classification
 # def my_min(arr)
 #     return nil if arr.empty?
@@ -34,24 +34,53 @@ def my_min(arr)
     answer
 end
 
-def largest_contiguous_subsum(arr)
-    subs = []
+# def largest_contiguous_subsum(arr)
+#     subs = []
 
-    arr.each.with_index do |ele1, idx1|
-        arr.each.with_index do |ele2, idx2|
-            subs << arr[idx1..idx2] if idx2 >= idx1
+#     arr.each.with_index do |ele1, idx1|
+#         arr.each.with_index do |ele2, idx2|
+#             subs << arr[idx1..idx2] if idx2 >= idx1
+#         end
+#     end
+
+#     greatest = subs[0].sum
+
+#     subs.each do |sub_array|
+#         greatest = sub_array.sum if greatest < sub_array.sum
+#     end
+
+#     greatest
+# end
+
+list1 = [5, 3, -7] # => 8
+list2 = [2, 3, -6, 7, -6, 7] #=> 8
+list3 = [-5, -1, -3] #=> -1
+# p largest_contiguous_subsum(list)
+
+
+
+
+def largest_contiguous_subsum(arr)
+    largest_sum = arr[0]
+    current_sum = arr[0]
+
+
+    arr.drop(1).each_with_index do |ele, index|
+    
+        if ele > (current_sum + ele)
+            current_sum = ele
+        else 
+            current_sum += ele
+        end
+        
+        if current_sum > largest_sum
+            largest_sum = current_sum
         end
     end
 
-    greatest = subs[0].sum
-
-    subs.each do |sub_array|
-        greatest = sub_array.sum if greatest < sub_array.sum
-    end
-
-    greatest
+    largest_sum
 end
 
-list = [5, 3, -7]
-
-p largest_contiguous_subsum(list)
+p largest_contiguous_subsum(list1)
+p largest_contiguous_subsum(list2)
+p largest_contiguous_subsum(list3)
