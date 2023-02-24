@@ -34,4 +34,24 @@ def my_min(arr)
     answer
 end
 
-p my_min(arr)
+def largest_contiguous_subsum(arr)
+    subs = []
+
+    arr.each.with_index do |ele1, idx1|
+        arr.each.with_index do |ele2, idx2|
+            subs << arr[idx1..idx2] if idx2 >= idx1
+        end
+    end
+
+    greatest = subs[0].sum
+
+    subs.each do |sub_array|
+        greatest = sub_array.sum if greatest < sub_array.sum
+    end
+
+    greatest
+end
+
+list = [5, 3, -7]
+
+p largest_contiguous_subsum(list)
